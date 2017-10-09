@@ -57,7 +57,7 @@ Additional information about the TP calibration process
      (import_and_split_ant, see above). This includes flags such as: mount
      off source, calibration device is not in correct position, power
      levels are not optimized, WCA not loaded.
-
+     
    - In addition, other flags can be applied during step 2
      (gen_tsys_and_flag, see above) :
 
@@ -93,16 +93,20 @@ Additional information about the TP calibration process
 What you have to do for galaxy NGC_1672
 ----------------------------------------
 
-1. Getting scripts:
+1. Getting scripts and setting the directory tree:
 
-   - Download the zip file from the Github https://github.com/cnherrera/phangs_scripts_TP_ALMA/
-     by clicking the Green bouton "Clone or download". The directory tree is the following:
-
-         # Directory tree
-
+   - Download the zip file from the Github https://github.com/cnherrera/TP_ALMA_data_reduction/
+     by clicking the Green bouton "Clone or download". 
+     
+   - Place the TP_ALMA_data_reduction-master.zip file you downloaded from the github in your 
+     HOME PHANGS-data-reduction folder. Unzip it and change the name to "scripts_TP".
+     
+   - Create a "raw" file at the same level as the "script_TP" folder. We will work in the 
+     following directory tree:
+	 
           PHANGS-data-reduction
-	  ├── products       ! Automatically created. Final fits files
-	  ├── tmp	     ! Automatically created. Temporal folder for data reduction.;
+	  ├── products       ! Automatically created. Final fits files.
+	  ├── tmp	     ! Automatically created. Temporal folder for data reduction.
 	  ├── raw	     ! Original ALMA data.
 	  │   ├── 2015.1.00925.S
 	  │   │   ├── 2015.1.00925.S
@@ -127,16 +131,15 @@ What you have to do for galaxy NGC_1672
 	          ├── fileflagNGC_1672.py
 	          └── ...
 
-
-2. Getting the data
+2. Getting the ALMA data:
 
      - Donwload from the ALMA Science Archive Query (http://almascience.nrao.edu./aq/) the files under the 
        Member OUS of the TP observations for a given ALMA project (i.e  the product and the raw files). 
-       Do NOT download the "semipass" files. Place the tar files in the "raw" folder (see above).
+       Do NOT download the "semipass" files. Place the tar files in the "raw" folder (see point 1).
 
-     - Untar the "product" file (uid..._001_of_001.tar) and the uid....asdm.sdm files. They will be automatically 
-       well placed in the standard ALMA directory tree. Example for ALMA directory tree after untaring files
-       for galaxy NGC_1672 in project 2015.1.00956.S:
+     - Within the "raw" folder, untar the "product" file (uid..._001_of_001.tar) and the uid....asdm.sdm files. 
+       They will be automatically placed in the standard ALMA directory tree. 
+       Example for ALMA directory tree after untaring file for galaxy NGC_1672 in project 2015.1.00956.S:
   
 	  # ALMA Directory tree, under the "raw" folder 
 
@@ -157,14 +160,11 @@ What you have to do for galaxy NGC_1672
 
 3. Running the scripts
 
-     - Place the zip file you downloaded from the github in the "scripts_TP" 
-       folder (see point 1) and unzip it.
+     - In "scripts_TP", untar the analysis_script.tar file included in the zipped folder.
      
-     - Untar the analysis_script.tar file included in the zipped folder.
-     
-     - Modify the "ALMA-TP-pipeline-NGC_1672.py" if you wish to modify the parameters 
-       used in the data reduction or imaging. State the step of the data reduction you 
-       want to perform. 
+     - In "scripts_TP", modify the "ALMA-TP-pipeline-NGC_1672.py" if you wish to modify the 
+       parameters used in the data reduction or imaging. State the step of the data reduction 
+       you want to perform. 
 
      - In the "scripts_TP" folder, start a CASA session and:
        CASA> execfile('ALMA-TP-pipeline-NGC_1672.py')
@@ -175,12 +175,12 @@ What you have to do for galaxy NGC_1672
 
        + TMP: Temporal folder where the TP data reduction happens. Once you have
        	      finished the data reduction, you can delete this folder. Raw data
-	      will be stores in the original ALMA folder (raw folder, see point 1).
+	      will be stored in the original ALMA folder (raw folder, see point 1).
 
 	      The "tmp" folder is a replica of the original ALMA folder, where only 
 	      the needed files are copied. Data reduction will be done here, in the 
 	      "calibration" folder (see directory tree in point 2). In the 
-	      calibration folder, two additional folders will be created: "plots" 
+	      "calibration" folder, two additional folders will be created: "plots" 
 	      and "obs_lists".
 	           + PLOTS folder: This folder contains all plots created by the data 
 		     	   	   reduction scripts. For instance, the Tsys and the 
