@@ -13,6 +13,7 @@
 #               (tsysmap[spws_scie[i]+1] = spws_tsys[i]-> tsysmap[spws_scie[i]+1] = spws_tsys[ddif.argmin()])
 # - 26.07.2017: modified convert_vel2chan_line, because some asap files had mixed the IFs, 
 #               having IFNO and IFID different.
+# - 10.10.2017: handle imaging of 2 SGs of the same galaxy. 
 #
 # Still need to do:
 # - Work on errors when files are not found, etc.
@@ -537,6 +538,8 @@ def import_and_split_ant(filename,doplots=False):
     
     filename0 = filename[0:filename.find('.ms')]
     os.system('cp -r '+path_raw+filename0+'.asdm.sdm '+filename0)
+
+    if  os.path.isdir(filename+'.flagversions') == True: os.system('rm -rf '+filename+'.flagversions')
     
     # 1.1 Import of the ASDM
     print "1.1 Importing from ASDM to MS"
@@ -631,7 +634,7 @@ def gen_tsys_and_flag(filename,spws_info,pipeline,doplots=False):
     
     # 2.2 Create png plots of CASA Tsys and bandpass solution
     print " 2.2 Create plots of Tsys and bandpass solution"
-    os.system('rm -rf plots/'+filename+'.tsys.plots.overlayTime/'+filename+'.tsys')
+    #os.system('rm -rf plots/'+filename+'.tsys.plots.overlayTime/'+filename+'.tsys')
     
     if doplots == True:
         os.system('rm -Rf plots/'+filename+'.tsys.plots.overlayTime/'+filename+'.tsys')
@@ -910,7 +913,13 @@ def imaging(source,name_line,phcenter,vel_source,source_vel_kms,vwidth_kms,chan_
     # Search for files already calibrated
     path = '.'
     Msnames = [f for f in os.listdir(path) if f.endswith('.cal.jy')]
-    print Msnames
+    
+    # If 2 SGs have to be imaged together, look for *cal.jy files for the second part of the galaxy 
+    if 'path_galaxy2' in globals() and image_2gals == True : 
+        path2 = ori_path+'/../'+path_galaxy2+'calibration/'
+        Msnames2 = [path2+f for f in os.listdir(path2) if f.endswith('.cal.jy')]
+        Msnames = Msnames+Msnames2
+    
     # Definition of parameters for imaging
     xSampling,ySampling,maxsize = aU.getTPSampling(Msnames[0],showplot=False)
     
@@ -941,13 +950,14 @@ def imaging(source,name_line,phcenter,vel_source,source_vel_kms,vwidth_kms,chan_
     
     theorybeam = fwhmfactor*c_light*1e3/freq/diameter*180/pi*3600
     cell       = theorybeam/9.0
-    imsize     = int(round(maxsize/cell)*1.5)   #int(round(maxsize/cell)*2) - smaller image than the one given by ALMA
-    
+    if 'factorim' in globals():  
+        imsize  = int(round(maxsize/cell)*factorim)
+    else:
+        imsize     = int(round(maxsize/cell)*1.5)
+        
     start_vel      = source_vel_kms-vwidth_kms/2
     nchans_vel     = int(round(vwidth_kms/chan_dv_kms))
     
-
-
     os.system('rm -Rf ALMA_TP.'+source+'.'+name_line+'.image')
     
     print "Start imaging"
