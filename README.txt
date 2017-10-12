@@ -139,47 +139,49 @@ What you have to do for galaxy NGC_1672
 
      - Within the "raw" folder, untar the "product" file (uid..._001_of_001.tar) and the uid....asdm.sdm files. 
        They will be automatically placed in the standard ALMA directory tree. 
-       Example for ALMA directory tree after untaring file for galaxy NGC_1672 in project 2015.1.00956.S:
-  
-	  # ALMA Directory tree, under the "raw" folder 
+       Example for ALMA directory tree, under the raw folder, after untaring thes file for galaxy NGC_1672 
+       in project 2015.1.00956.S:
 
-	  2015.1.00956.S
-	  └── science_goal.uid___A001_X2fb_X271
-		  └── group.uid___A001_X2fb_X272
-		     └── member.uid___A001_X2fb_X279
-			       ├── calibration   
-			       ├── log            
-			       ├── product       
-			       ├── qa           
-			       ├── raw           
-			       ├── script        
-			       └── README        
+       # ALMA Directory tree, under the "raw" folder 
+	2015.1.00956.S
+	└── 2015.1.00956.S
+	    └── science_goal.uid___A001_X2fb_X271
+		└── group.uid___A001_X2fb_X272
+		    └── member.uid___A001_X2fb_X279
+			├── calibration   
+			├── log            
+			├── product       
+			├── qa           
+			├── raw           
+			├── script        
+			└── README        
 
       If you wish, you can read the ALMA README file for comments from the
       ALMA data reducer and for further description of the folders.
 
 3. Running the scripts
 
-     - In "scripts_TP", untar the analysis_script.tar file included in the zipped folder.
+     - In the "scripts_TP" folder, untar the analysis_script.tar file included in the zipped file.
      
-     - In "scripts_TP", modify the "ALMA-TP-pipeline-NGC_1672.py" if you wish to modify the 
-       parameters used in the data reduction or imaging. State the step of the data reduction 
-       you want to perform. 
+     - In the "scripts_TP" folder, modify the "ALMA-TP-pipeline-NGC_1672.py" if you wish to modify the 
+       parameters used in the data reduction or imaging. State the step of the data reduction you
+       want to perform. 
 
      - In the "scripts_TP" folder, start a CASA session and:
        CASA> execfile('ALMA-TP-pipeline-NGC_1672.py')
 
-     - Two additional folders will be created, products and tmp (see point 1):
+     - Two additional folders will be created at the same level as the scripts_TP folder, 
+       products and tmp (see point 1 for directory tree):
        
        + PRODUCTS: It will contain the final fits files.
 
        + TMP: Temporal folder where the TP data reduction happens. Once you have
        	      finished the data reduction, you can delete this folder. Raw data
-	      will be stored in the original ALMA folder (raw folder, see point 1).
+	      will be stored in the original ALMA folder.
 
 	      The "tmp" folder is a replica of the original ALMA folder, where only 
-	      the needed files are copied. Data reduction will be done here, in the 
-	      "calibration" folder (see directory tree in point 2). In the 
+	      the needed files are copied. Data reduction will be done here, specifically in 
+	      the "calibration" folder (see directory tree in point 2). In the 
 	      "calibration" folder, two additional folders will be created: "plots" 
 	      and "obs_lists".
 	           + PLOTS folder: This folder contains all plots created by the data 
