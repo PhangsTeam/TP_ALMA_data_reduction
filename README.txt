@@ -100,51 +100,56 @@ What you have to do for galaxy NGC_1672
      
    - Place the TP_ALMA_data_reduction-master.zip file you downloaded from the github in your 
      HOME PHANGS-data-reduction folder. Unzip it and change the name to "scripts_TP".
-     
-   - Create a "raw" file at the same level as the "script_TP" folder. We will work in the 
-     following directory tree:
+
+   - We will work in the same directory tree created by AKL for the 12m+7m array data. In the "imaging"
+     folder create a folder called "singledish" and move the "scripts_TP" folder you just renamed inside:
 	 
-          PHANGS-data-reduction
-	  ├── products       ! Automatically created. Final fits files.
-	  ├── tmp	     ! Automatically created. Temporal folder for data reduction.
-	  ├── raw	     ! Original ALMA data.
-	  │   ├── 2015.1.00925.S
-	  │   │   ├── 2015.1.00925.S
-	  │   │   │   ├── science_goal.uid___A001_X2fe_X2ba
-	  │   │   │   ├── science_goal.uid___A001_X2fe_X2c4
-	  │   │   │   ├── ...
-	  │   │   │   └── science_goal.uid___A001_X2fe_X332
-	  │   │   └── 2015.1.00925.S.readme.txt
-	  │   └── 2015.1.00956.S
-	  │       ├── 2015.1.00956.S
-	  │       │   ├── science_goal.uid___A001_X2fb_X271
-	  │       │   ├── science_goal.uid___A001_X2fb_X27b
-	  │       │   ├── ...
-	  │       │   └── science_goal.uid___A001_X2fb_X2df
-	  │       └── 2015.1.00956.S.readme.txt
-	  └── scripts_TP     ! Contains the TP scripts for data reduction.
-	      ├── ALMA-TP-pipeline-NGC_1672.py
-	      ├── ALMA-TP-pipeline-...
-	      ├── ALMA-TP-tools.py
-	      ├── analysis_scripts
-	      └── flags_folder
-	          ├── fileflagNGC_1672.py
-	          └── ...
+          PHANGS  !data-reduction
+	  ├── 2017.1.00886.L
+	  ├── 2015.1.00925.S
+	  │   ├── science_goal.uid___A001_X2fe_X2ba
+	  │   ├── science_goal.uid___A001_X2fe_X2c4
+	  │   ├── ...
+	  │   └── science_goal.uid___A001_X2fe_X332
+	  ├── 2015.1.00956.S
+	  │   ├── science_goal.uid___A001_X2fb_X271
+	  │   ├── science_goal.uid___A001_X2fb_X27b
+	  │   ├── ...
+	  │   └── science_goal.uid___A001_X2fb_X2df
+	  │       
+	  └── imaging       ! imaging 12m, 7m and TP
+	      ├── scripts   ! Scripts given by AKL for extracting and imaging 12m, 7m and TP data (data delivery).
+	      ├── ngc1672
+	      ├── ngc...
+	      └── singledish      ! specific data and scripts for TP observations.
+	          ├── data        ! Automatically created. Final TP fits files. 
+		  ├── scripts_TP  ! Contains the TP scripts for data reduction. This is where you have to put the unzip folder.
+		  │   ├── ALMA-TP-pipeline-NGC_1672.py
+	          │   ├── ALMA-TP-pipeline-...
+	          │   ├── ALMA-TP-tools.py
+	          │   ├── analysis_scripts
+	          │   └── flags_folder
+	          │       ├── fileflagNGC_1672.py
+	          │       └── ...	  
+		  └── tmp         !  Automatically created. Temporal folder for data reduction.
+		 
 
 2. Getting the ALMA data:
 
      - Donwload from the ALMA Science Archive Query (http://almascience.nrao.edu./aq/) the files under the 
        Member OUS of the TP observations for a given ALMA project (i.e  the product and the raw files). 
-       Do NOT download the "semipass" files. Place the tar files in the "raw" folder (see point 1).
+       Do NOT download the "semipass" files. Place the tar files in the "PHANGS" folder (see point 1).
 
-     - Within the "raw" folder, untar the "product" file (uid..._001_of_001.tar) and the uid....asdm.sdm files. 
-       They will be automatically placed in the standard ALMA directory tree. 
-       Example for ALMA directory tree, under the raw folder, after untaring thes file for galaxy NGC_1672 
-       in project 2015.1.00956.S:
+     - Within the PHANGS folder, untar the "product" file (uid..._001_of_001.tar) and the uid....asdm.sdm files. 
+       They will be automatically placed in the standard ALMA directory tree. By default, the directory is 
+       created with 2 folders with the project number. Remove one of these folder, i.e. 
+       > cd 2015.1.00956.S
+       > mv 2015.1.00956.S/* .
+       Example for ALMA directory tree, under the PHANGS folder, after untaring the file for galaxy NGC_1672 
+       in project 2015.1.00956.S and removing one project number folder:
 
-       # ALMA Directory tree, under the "raw" folder 
-	2015.1.00956.S
-	└── 2015.1.00956.S
+       # ALMA Directory tree, under the PHANGS folder 
+	 2015.1.00956.S
 	    └── science_goal.uid___A001_X2fb_X271
 		└── group.uid___A001_X2fb_X272
 		    └── member.uid___A001_X2fb_X279
@@ -173,7 +178,7 @@ What you have to do for galaxy NGC_1672
      - Two additional folders will be created at the same level as the scripts_TP folder, 
        products and tmp (see point 1 for directory tree):
        
-       + PRODUCTS: It will contain the final fits files.
+       + DATA: It will contain the final fits files.
 
        + TMP: Temporal folder where the TP data reduction happens. Once you have
        	      finished the data reduction, you can delete this folder. Raw data
