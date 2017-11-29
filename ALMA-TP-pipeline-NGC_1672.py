@@ -31,7 +31,7 @@ chan_dv_kms    = 2.5
 freq_rest_im   = freq_rest/1e3                  # rest frequency in GHz for imaging
 name_line      = 'CO21'                         # Name of the line, to be used for naming the files
 
-# Exclude this EB, conversion to MS cannot be done, SEMIPASS
+# Exclude this EB, conversion to MS cannot be done and SEMIPASS
 EBexclude      = ['uid___A002_Xb7d0ee_X9777', 'uid___A002_Xb6e98e_X6ca2']  
 
 #-----------------------------------------------
