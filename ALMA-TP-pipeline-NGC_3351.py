@@ -19,7 +19,8 @@ vel_line   = '540~1015'                         # Range in velocity in km/s to e
                                                 # You can add more than 1 line in the following format:  '-100~-50;20~30', where line 
                                                 # emission is found between -100 and -50 km/s, and between 20 and 30 km/s. 
 
-EBexclude  = 'uid___A002_Xb44b49_Xa6f'          # Exclude this EB, semipass (not JyperK factor value).
+# Exclude this EB, SEMIPASS (not JyperK factor value)
+EBexclude  = 'uid___A002_Xb44b49_Xa6f'          
 
 #----------------------------------
 # Parameters for imaging:
