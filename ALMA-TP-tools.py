@@ -1049,15 +1049,13 @@ os.chdir('../'+path_galaxy+'calibration')   # Working on the calibration folder 
 pipeline = checkpipeline()                  # Pipeline reduced data (True or False)
 
 # Defining Execution Blocks (EBS) names
-if pipeline == True: 
-    EBsnames = [f for f in os.listdir(path_raw) if f.endswith('.asdm.sdm')]
-else: 
-    EBsnames = [f for f in os.listdir(path_script) if f.endswith('.scriptForSDCalibration.py')]
+EBsnames = [f for f in os.listdir(path_raw) if f.endswith('.asdm.sdm')]
+
+if 'EBexclude' in globals(): 
+   EBsnames = [s for s in EBsnames if s[0:-9] not in EBexclude]
 
 if len(do_step) == 0: do_step = [1,2,3,4,5,6,7,8]
 
-if 'EBexclude' in globals(): 
-   EBsnames = [s for s in EBsnames if s not in EBexclude]
 
 # Do data reduction for each EB 
 for EBs in EBsnames:
