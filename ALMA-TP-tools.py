@@ -62,7 +62,7 @@ except ImportError:
 # Check if data was calibrated with the pipeline 
 def checkpipeline():
     
-    if len(glob.glob(path_script+'PPR*.xml')) > 0:        
+    if len(glob.glob(path_script+'*.xml')) > 0:        
         print "> Data was reduced by ALMA/JAO using an automatized pipeline "
         print "> Setting the variable 'pipeline' to True\n"
         return True
@@ -210,7 +210,10 @@ def read_spw(filename,source):
     names          = mytb.getcol('NAME')
     rest_freq_scie = [rest_freq_scie[i] for i in range(len(spws_scie)) if "FULL_RES" in names[spws_scie[i]]]
     spws_scie      = [spw for spw in spws_scie if "FULL_RES" in names[spw]]
-    
+    spws_scie      = aU.getScienceSpws(filename)
+    spws_scie      = spws_scie.split(",")
+    spws_scie = [int(i) for i in spws_scie]
+
     # Read number of channels, frequency at channel zero and compute representative frequency
     freq_zero_scie  = range(len(spws_scie))
     chan_width_scie = range(len(spws_scie))
@@ -678,14 +681,14 @@ def gen_tsys_and_flag(filename,spws_info,pipeline,doplots=False):
     print "Original map between science and tsys spws: (they should have the same frequency)"
     for i in range(len(spws_scie)): print spws_scie[i],tsysmap[spws_scie[i]]
     
-    tsysmap = get_tsysmap(tsysmap,spws_scie,spws_tsys,freq_rep_scie,freq_rep_tsys)
+#    tsysmap = get_tsysmap(tsysmap,spws_scie,spws_tsys,freq_rep_scie,freq_rep_tsys)
     
     spwmap = {}
     for i in spws_scie:
         if not tsysmap[i] in spwmap.keys():
             spwmap[tsysmap[i]] = []
         spwmap[tsysmap[i]].append(i)
-    
+
     return spwmap
 
 #-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
@@ -919,10 +922,12 @@ def imaging(source,name_line,phcenter,vel_source,source_vel_kms,vwidth_kms,chan_
     
     # If 2 SGs have to be imaged together, look for *cal.jy files for the second part of the galaxy 
     if 'path_galaxy2' in globals() and image_2gals == True : 
+        print "Two Science goals are considerated to create the final image of the galaxy "+source
         path2 = ori_path+'/../'+path_galaxy2+'calibration/'
+        print 'PATH to 2nd part of the galaxy '+path2
         Msnames2 = [path2+f for f in os.listdir(path2) if f.endswith('.cal.jy')]
         Msnames = Msnames+Msnames2
-    
+    print Msnames
     # Definition of parameters for imaging
     xSampling,ySampling,maxsize = aU.getTPSampling(Msnames[0],showplot=False)
     
@@ -966,7 +971,7 @@ def imaging(source,name_line,phcenter,vel_source,source_vel_kms,vwidth_kms,chan_
     print "Start imaging"
     print "Imaging from velocity "+str(start_vel)+", using "+str(nchans_vel)+" channels."
     print "rest frequency is "+str(freq_rest_im)+" GHz."
-    sdimaging(infiles = Msnames,
+    sdimaging(infiles = Msnames[0],
         mode = 'velocity',
         nchan = nchans_vel,
         width = str(chan_dv_kms)+'km/s',
@@ -1055,7 +1060,6 @@ if 'EBexclude' in globals():
    EBsnames = [s for s in EBsnames if s[0:-9] not in EBexclude]
 
 if len(do_step) == 0: do_step = [1,2,3,4,5,6,7,8]
-
 
 # Do data reduction for each EB 
 for EBs in EBsnames:
