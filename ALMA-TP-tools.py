@@ -971,7 +971,7 @@ def imaging(source,name_line,phcenter,vel_source,source_vel_kms,vwidth_kms,chan_
     print "Start imaging"
     print "Imaging from velocity "+str(start_vel)+", using "+str(nchans_vel)+" channels."
     print "rest frequency is "+str(freq_rest_im)+" GHz."
-    sdimaging(infiles = Msnames[0],
+    sdimaging(infiles = Msnames,
         mode = 'velocity',
         nchan = nchans_vel,
         width = str(chan_dv_kms)+'km/s',
