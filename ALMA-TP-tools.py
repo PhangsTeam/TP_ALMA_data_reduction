@@ -15,6 +15,7 @@
 #               having IFNO and IFID different.
 # - 10.10.2017: handle imaging of 2 SGs of the same galaxy. 
 # - 28.11.2017: change directory to conciliate 12m+7m data reduction with TP data reduction directory trees.
+# - 01.06.2017: Add tarfile because in some projects the jyperk file is in a tar file (auxproduct.tgz).
 # Still need to do:
 # - Work on errors when files are not found, etc.
 #
@@ -27,6 +28,7 @@ import numpy as np     # Support for large, multi-dimensional arrays and matrice
 import sys             # System-specific parameters and functions
 import scipy.constants # Physical constants
 import glob            # Pathnames matching a specified pattern
+import tarfile         # To untar files
 import imp
 
 #---------------------------------------------------------------------
@@ -414,6 +416,11 @@ def extract_jyperk(filename,pipeline):
         ant_arr = []
         spw_arr = []
         val_arr = []
+        if os.path.isfile(file_script) == False:
+            filetgz = glob.glob("*auxproducts.tgz")
+            tar = tarfile.open(filetgz[0])
+            tar.extractall()
+            tar.close()
         with open(file_script) as f: 
             for line in f:
                 if filename in line:
@@ -935,6 +942,7 @@ def imaging(source,name_line,phcenter,vel_source,source_vel_kms,vwidth_kms,chan_
     msmd.open(Msnames[0])
     freq = msmd.meanfreq(0)
     msmd.close()
+    print "Reading frequency in image: "+str(freq)
     
     # Coordinate of phasecenter read from the data or used as input
     if phcenter == False:
@@ -970,7 +978,9 @@ def imaging(source,name_line,phcenter,vel_source,source_vel_kms,vwidth_kms,chan_
     
     print "Start imaging"
     print "Imaging from velocity "+str(start_vel)+", using "+str(nchans_vel)+" channels."
-    print "rest frequency is "+str(freq_rest_im)+" GHz."
+    print "Rest frequency is "+str(freq_rest_im)+" GHz."
+    print "Cell and image sizes are: "+str(cell)+"arcsec and "+str(imsize)
+    print Msnames
     sdimaging(infiles = Msnames,
         mode = 'velocity',
         nchan = nchans_vel,
@@ -987,7 +997,6 @@ def imaging(source,name_line,phcenter,vel_source,source_vel_kms,vwidth_kms,chan_
         overwrite = True,
         outfile = 'ALMA_TP.'+source+'.'+name_line+'.image')
     
-    print imsize
     # Correct the brightness unit in the image header  
     imhead(imagename = 'ALMA_TP.'+source+'.'+name_line+'.image',
         mode = 'put',
@@ -1081,7 +1090,8 @@ for EBs in EBsnames:
             if 4 in do_step: extract_cube(filename,source,ant,freq_rest,vel_source,spws_info,vel_cube,doplots) 
             if 5 in do_step: baseline(filename,source,ant,freq_rest,vel_source,spws_info,vel_line,bl_order)   
         if 6 in do_step: concat_ants(filename,vec_ants,vel_source,freq_rest,spws_info,pipeline)  
-                       
+
+vel_source = read_vel_source(filename,source)                      
 if 7 in do_step: imaging(source,name_line,phase_center,vel_source,source_vel_kms,vwidth_kms,chan_dv_kms,freq_rest_im,doplots)
 if 8 in do_step: export_fits(name_line,source)
 
