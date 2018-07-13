@@ -2,8 +2,8 @@
 # Defining paths and files
 #-------------------------------
 
-path_galaxy = "tmp/2017.1.00886.L/science_goal.uid___A001_X1284_X27d7/group.uid___A001_X1284_X27d8/member.uid___A001_X1284_X27df/"
-flag_file   = "fileflagNGC_2997.py"             # File containing additional flags 
+path_galaxy = "tmp/2017.1.00886.L/science_goal.uid___A001_X1284_X2831/group.uid___A001_X1284_X2832/member.uid___A001_X1284_X2839/" 
+flag_file   = "fileflagNGC_2090.py"             # File containing additional flags 
 
 #----------------------------------1
 # Parameters for data reduction:
@@ -12,10 +12,10 @@ flag_file   = "fileflagNGC_2997.py"             # File containing additional fla
 doplots    = True                               # Do non-interactive. additional plots (plots will be saved in "calibration/plots" folder)
 bl_order   = 1                                  # Order for the baseline fitting
 
-source     = 'NGC2997'                          # Source name
+source     = 'NGC2090'                          # Source name
 freq_rest  =  230538.                           # Rest frequency of requested line in MHz (ex: "freq_rest  = 230538" for CO(2-1))
-vel_cube   = '689~1489'                         # Range in velocity in km/s to extract the line cube.
-vel_line   = '980~1240'                         # Range in velocity in km/s to exclude the line emission from the baseline fit.
+vel_cube   = '521~1321'                         # Range in velocity in km/s to extract the line cube.
+vel_line   = '735~1060;1165~1321'               # Range in velocity in km/s to exclude the line emission from the baseline fit.
                                                 # You can add more than 1 line in the following format:  '-100~-50;20~30', where line 
                                                 # emission is found between -100 and -50 km/s, and between 20 and 30 km/s. 
 
@@ -23,14 +23,15 @@ vel_line   = '980~1240'                         # Range in velocity in km/s to e
 # Parameters for imaging:
 #------------------------
 
-phase_center   = 'J2000 09h45m44.1s -31d12m00s' # Provide coordinate of phase center, otherwise set to "False" and coordinates will be read from the data
-source_vel_kms = 1089                           # Provide velocity of the source, otherwise set to "False" and coordinates will be read from the data
-vwidth_kms     = 700                            # width in velocity and velocity resolution in km/s
+phase_center   = 'J2000 05h47m01.9s -34d15m02s' # Provide coordinate of phase center, otherwise set to "False" and coordinates will be read from the data
+source_vel_kms = 900 #872                            # Provide velocity of the source, otherwise set to "False" and coordinates will be read from the data
+vwidth_kms     = 500 # 572                            # width in velocity and velocity resolution in km/s
 chan_dv_kms    = 2.5
 
 freq_rest_im   = freq_rest/1e3                  # rest frequency in GHz for imaging
 name_line      = 'CO21'                         # Name of the line, to be used for naming the files
-#CO21.wo5EBs'
+#.excludegtr1165.veldiff'
+#CO21.900kms
 # Exclude these EBs, SEMIPASS
 #EBexclude      = ['uid___A002_Xc96f17_Xbdc7']
 #-----------------------------------------------
