@@ -17,8 +17,9 @@
 # - 28.11.2017: change directory to conciliate 12m+7m data reduction with TP data reduction directory trees.
 # - 01.06.2017: Add tarfile because in some projects the jyperk file is in a tar file (auxproduct.tgz).
 # Still need to do:
-# - Work on errors when files are not found, etc.
-#
+# - Work on errors when files are not found, where asdm import did not work fine, etc.
+# - Add timer (suggestion by CF)
+# - Add GET_SOURCENAME in main script to call the right source name.
 #-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 # Import libraries
