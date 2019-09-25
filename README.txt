@@ -68,7 +68,7 @@ Additional information about the TP calibration process
        + If you whish to add additional flags, you need to create a file 
        	 describing the flags to be done using the "sdflag" task under the 
 	 name "scripts_TP/galaxy-specific-scripts/flags-folder/GalName-flagfile.py". For instance:
-         > cat fileflagNGC_4535.py
+         > cat NGC_4535-flagfile.py
 	 sdflag(infile = 'uid___A002_Xb1d975_X2260.ms.PM02.asap',
   	    		  mode = 'manual',
   			  scan = '11,12',
@@ -129,8 +129,8 @@ What you have to do for galaxy NGC_1672
 		  │       ├── NGC_1672-input.py
 	          │       ├── GalName-input.py...
 	          │       └── flags-folder
-	          │       ├── NGC_1672-flagfile.py
-	          │       └── ...	  
+	          │           ├── NGC_1672-flagfile.py
+	          │           └── ...	  
 		  └── tmp         !  Automatically created. Temporal folder for data reduction.
 		 
 
