@@ -36,7 +36,7 @@ EBexclude      = ['uid___A002_Xc96f17_Xbdc7']
 #-----------------------------------------------
 # Steps of data reduction you want to perform:
 #---------------------------------------------
-do_step = [4,5,6,7,8]
+do_step = [1,2,3,4,5,6,7,8]
 #  1: import_and_split_ant - Import data to MS and split by antenna    (adsm   -> asap)
 #  2: gen_tsys_and_flag    - Generate tsys cables and apply flags      (create .tsys and swpmap)
 #  3: counts2kelvin        - Calibration of Tsys and convert data to K (asap   -> asap.2)
