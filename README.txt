@@ -29,7 +29,7 @@ To do this, the sources are spread in three files:
     Script which contains the generic procedures for total power data
     reduction and imaging. You should not modify this script.
 
-  - GalaxyName-input.py
+  - galaxy-specific-scripts/GalaxyName-input.py
     Galaxy specific scripts that encode our own data reduction. This script
     uses the two previous code source.
 
