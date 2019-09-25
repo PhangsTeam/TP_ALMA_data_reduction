@@ -123,12 +123,13 @@ What you have to do for galaxy NGC_1672
 	      └── singledish      ! specific data and scripts for TP observations.
 	          ├── data        ! Automatically created. Final TP fits files. 
 		  ├── scripts_TP  ! Contains the TP scripts for data reduction. This is where you have to put the unzip folder.
-		  │   ├── NGC_1672-input.py
-	          │   ├── GalName-input.py...
 	          │   ├── ALMA-TP-tools.py
 	          │   ├── analysis_scripts
-	          │   └── flags_folder
-	          │       ├── fileflagNGC_1672.py
+	          │   └── galaxy-specific-scripts
+		  │       ├── NGC_1672-input.py
+	          │       ├── GalName-input.py...
+	          │       └── flags-folder
+	          │       ├── NGC_1672-flagfile.py
 	          │       └── ...	  
 		  └── tmp         !  Automatically created. Temporal folder for data reduction.
 		 
@@ -167,12 +168,12 @@ What you have to do for galaxy NGC_1672
 
      - In the "scripts_TP" folder, untar the analysis_script.tar file included in the zipped file.
      
-     - In the "scripts_TP" folder, modify the "GalName-input.py" if you wish to modify the 
+     - In the "scripts_TP/galaxy-specific-scripts" folder, modify the "GalName-input.py" if you wish to modify the 
        parameters used in the data reduction or imaging. State the step of the data reduction you
        want to perform. 
 
      - In the "scripts_TP" folder, start a CASA session and:
-       CASA> execfile('NGC_1672-input.py')
+       CASA> execfile('galaxy-specific-scripts/NGC_1672-input.py')
 
      - Two additional folders will be created at the same level as the scripts_TP folder, 
        products and tmp (see point 1 for directory tree):
