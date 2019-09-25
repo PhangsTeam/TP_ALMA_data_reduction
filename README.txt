@@ -67,7 +67,7 @@ Additional information about the TP calibration process
 
        + If you whish to add additional flags, you need to create a file 
        	 describing the flags to be done using the "sdflag" task under the 
-	 name "scripts_TP/flags_folder/fileflagGalNam.py". For instance:
+	 name "scripts_TP/galaxy-specific-scripts/flags-folder/GalName-flagfile.py". For instance:
          > cat fileflagNGC_4535.py
 	 sdflag(infile = 'uid___A002_Xb1d975_X2260.ms.PM02.asap',
   	    		  mode = 'manual',
