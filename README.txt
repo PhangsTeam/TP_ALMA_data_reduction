@@ -9,15 +9,14 @@ Basics: How does it work?
 -------------------------
 
 The ALMA total power reduction executes the follwing steps:
-  1: import_and_split_ant - Import data to MS and split by antenna    (adsm   -> asap)
-  2: gen_tsys_and_flag    - Generate tsys cables and apply flags      (create .tsys and swpmap)
-  3: counts2kelvin        - Calibration of Tsys and convert data to K (asap   -> asap.2)
-  4: extract_cube         - Extract cube with line                    (asap.2 -> asap.3)
-  5: baseline             - Baseline correction                       (asap.3 -> asap.4)
-  6: concat_ants          - Concatenate all antennas                  (asap.4 -> ms.5 -> cal.jy)
-  7: imaging              - Imaging and fix the header                (cal.jy -> image)
-  8: export_fits          - Export image and weight to a fits file    (image  -> fits)
-
+  1: import_and_split_ant => Import data to MS and split by antenna    (adsm   -> asap)
+  2: gen_tsys_and_flag    => Generate Tsys data and apply flags        (create .tsys and .swpmap)
+  3: counts2kelvin        => Calibrate Tsys and convert data to K      (asap   -> asap.2)
+  4: extract_cube         => Extract PPV cube around the target line   (asap.2 -> asap.3)
+  5: baseline             => Baseline                                  (asap.3 -> asap.4)
+  6: concat_ants          => Concatenate all antennas                  (asap.4 -> ms.5 -> cal.jy)
+  7: imaging              => Grid data and fix the header              (cal.jy -> image)
+  8: export_fits          => Export image and weight to fits files     (image  -> fits)
 
 To do this, the sources are spread in three files:
 
@@ -30,7 +29,7 @@ To do this, the sources are spread in three files:
     Script which contains the generic procedures for total power data
     reduction and imaging. You should not modify this script.
 
-  - ALMA-TP-pipeline-GalaxyName.py
+  - GalaxyName-input.py
     Galaxy specific scripts that encode our own data reduction. This script
     uses the two previous code source.
 
@@ -46,14 +45,14 @@ Additional information about the TP calibration process
    to GILDAS\CLASS to make a 2nd round of baseline subtraction
    piecewise. If required, the GILDAS\CLASS scripts can be shared.
 
-2. The ALMA TP data can originally be reduced by JAO or any of the ARC
-   nodes using scripts or by an automatized pipeline. Depending on who does
-   the data reduction, our scripts should have slightly different behaviors
-   to apply the flagging and to convert from Kelvin to Jansky per beam.
+2. The ALMA TP data was originally reduced either by JAO, one of the ARC
+   nodes using scripts, or by an automatized pipeline. Our scripts
+   accommodate slightly different behaviors to apply the flagging and to
+   convert from Kelvin to Jansky per beam.
 
    FLAGGING: 
 
-   - For all data, an apriori flagging is applied during step 1
+   - For all data, an a priori flagging is applied during step 1
      (import_and_split_ant, see above). This includes flags such as: mount
      off source, calibration device is not in correct position, power
      levels are not optimized, WCA not loaded.
@@ -124,8 +123,8 @@ What you have to do for galaxy NGC_1672
 	      └── singledish      ! specific data and scripts for TP observations.
 	          ├── data        ! Automatically created. Final TP fits files. 
 		  ├── scripts_TP  ! Contains the TP scripts for data reduction. This is where you have to put the unzip folder.
-		  │   ├── ALMA-TP-pipeline-NGC_1672.py
-	          │   ├── ALMA-TP-pipeline-...
+		  │   ├── NGC_1672-input.py
+	          │   ├── GalName-input.py...
 	          │   ├── ALMA-TP-tools.py
 	          │   ├── analysis_scripts
 	          │   └── flags_folder
@@ -164,23 +163,23 @@ What you have to do for galaxy NGC_1672
       If you wish, you can read the ALMA README file for comments from the
       ALMA data reducer and for further description of the folders.
 
-3. Running the scripts
+3. Running our scripts
 
      - In the "scripts_TP" folder, untar the analysis_script.tar file included in the zipped file.
      
-     - In the "scripts_TP" folder, modify the "ALMA-TP-pipeline-NGC_1672.py" if you wish to modify the 
+     - In the "scripts_TP" folder, modify the "GalName-input.py" if you wish to modify the 
        parameters used in the data reduction or imaging. State the step of the data reduction you
        want to perform. 
 
      - In the "scripts_TP" folder, start a CASA session and:
-       CASA> execfile('ALMA-TP-pipeline-NGC_1672.py')
+       CASA> execfile('NGC_1672-input.py')
 
      - Two additional folders will be created at the same level as the scripts_TP folder, 
        products and tmp (see point 1 for directory tree):
        
-       + DATA: It will contain the final fits files.
+       + DATA: It will contain the final data products in FITS format.
 
-       + TMP: Temporal folder where the TP data reduction happens. Once you have
+       + TMP: Temporary folder where the TP data reduction happens. Once you have
        	      finished the data reduction, you can delete this folder. Raw data
 	      will be stored in the original ALMA folder.
 
@@ -195,6 +194,5 @@ What you have to do for galaxy NGC_1672
 				   can judge the quality of the data.
 		   + OBS_LISTS folder: This folder contains the observation lists of 
 		     	       	       the data.
-
 
 ###########################################################################
