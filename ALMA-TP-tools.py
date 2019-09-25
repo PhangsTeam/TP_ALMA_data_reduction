@@ -277,7 +277,7 @@ def extract_flagging(filename,pipeline):
 
     os.system('rm '+path_script+'file_flags.py')
     file_flag    = open(path_script+'file_flags.py', 'w')
-    fileflagread = ori_path+'/flags_folder/'+flag_file
+    fileflagread = ori_path+'/galaxy-specific-scripts/flags-folder/'+flag_file
 
     if pipeline == True: 
  	if os.path.exists(fileflagread) == False:        
@@ -288,7 +288,7 @@ def extract_flagging(filename,pipeline):
             print "  mode = 'manual',"
             print "  spw = '19:0~119;3960~4079,21:0~500;3960~4079',"
             print "  overwrite = True)"
-            print " Save it as fileflagNAMEGAL.py in the flags_folder"
+            print " Save it as GalName-flagfile.py in galaxy-specific-scripts/flags-folder"
         else:
             print "Reading file "+fileflagread+" for flagging"
             with open(fileflagread) as f: lines_f = f.readlines()
