@@ -1,7 +1,7 @@
 #-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 # ALMA Total Power Data Reduction Script
 # Original ALMA calibration script modified by C. Herrera 12/01/2017
-# Do not modify. This script is called by "ALMA-TP-pipeline-GalName.py".
+# Do not modify. This script is called by "galaxy-specific-scripts/GalaxyName-input.py".
 # 
 # Last modifications: 
 # - 31.01.2017: read_source_coordinates
