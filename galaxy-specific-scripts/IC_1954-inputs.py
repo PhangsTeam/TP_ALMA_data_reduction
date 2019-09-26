@@ -4,7 +4,7 @@
 
 #path_galaxy = "tmp/2017.1.00886.L/science_goal.uid___A001_X1284_X28b3/group.uid___A001_X1284_X28b4/member.uid___A001_X1284_X28bb/"
 path_galaxy = "2017.1.00886.L/science_goal.uid___A001_X1284_X28b3/group.uid___A001_X1284_X28b4/member.uid___A001_X1284_X28bb/"
-flag_file   = "fileflagIC_1954.py"             # File containing additional flags 
+flag_file   = IC1954-flagfile.py"             # File containing additional flags 
 
 #----------------------------------1
 # Parameters for data reduction:

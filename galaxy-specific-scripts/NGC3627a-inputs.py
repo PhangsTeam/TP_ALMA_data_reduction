@@ -3,7 +3,7 @@
 #-------------------------------
 
 path_galaxy = "tmp/2015.1.00956.S/science_goal.uid___A001_X2fb_X285/group.uid___A001_X2fb_X286/member.uid___A001_X2fb_X28d/"
-flag_file   = "fileflagNGC_3627a.py"             # File containing additional flags 
+flag_file   = NGC3627a-flagfile.py"             # File containing additional flags 
 
 #----------------------------------
 # Parameters for data reduction:
