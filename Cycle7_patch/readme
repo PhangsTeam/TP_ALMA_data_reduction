@@ -1,0 +1,11 @@
+For Cycle 7 and later ALMA data, the TP pipeline will break at step 1.1 due to incompatibility between the ASDM format and the IMPORTASDM command in CASA versions prior to 5.0.
+
+As a temporary fix, you can call the ALMA-TP-importCycle7.py script in CASA 5.x, which will just import the data from ASDM to MS. Then, run the normal script.
+
+ALMA-TP-pipelineImport-NGC_7793a.py gives an example of a basic wrapper script for a particular galaxy. Modify the path to the data set appropriately, rename, then run via:
+
+execfile('ALMA-TP-pipelineImport-<galaxyname>.py')
+
+where <galaxyname> denotes your naming scheme.
+
+Any questions, email Chris Faesi at cfaesi [at] umass.edu.
