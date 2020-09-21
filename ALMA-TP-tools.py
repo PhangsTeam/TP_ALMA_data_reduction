@@ -16,10 +16,11 @@
 # - 10.10.2017: handle imaging of 2 SGs of the same galaxy. 
 # - 28.11.2017: change directory to conciliate 12m+7m data reduction with TP data reduction directory trees.
 # - 01.06.2017: Add tarfile because in some projects the jyperk file is in a tar file (auxproduct.tgz).
+# - 21.09.2020: Add call to GET_SOURCENAME to handle mismatched source names between the galaxy specific script and #ON_SOURCE target from the table
 # Still need to do:
 # - Work on errors when files are not found, where asdm import did not work fine, etc.
 # - Add timer (suggestion by CF)
-# - Add GET_SOURCENAME in main script to call the right source name.
+# - Add GET_SOURCENAME in main script to call the right source name. DONE CMF 21.09.2020.
 #-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 # Import libraries
@@ -1080,7 +1081,8 @@ for EBs in EBsnames:
     file_exists = check_exists(filename)                             # Check weather the raw data exists
     if file_exists == True:
         if 1 in do_step: import_and_split_ant(filename,doplots)      # Import and split data per antenna
-        vec_ants_t = read_ants_names(filename)                       # Read vector with name of all antennas
+        source = get_sourcename(filename)			     # read the source name directly from the ms
+	vec_ants_t = read_ants_names(filename)                       # Read vector with name of all antennas
         vec_ants   = [s for s in vec_ants_t if any(xs in s for xs in ['PM','DV'])] # Get only 12m antennas.
         vel_source = read_vel_source(filename,source)                # Read source velocity
         spws_info  = read_spw(filename,source)                       # Read information of spws (science and Tsys)
